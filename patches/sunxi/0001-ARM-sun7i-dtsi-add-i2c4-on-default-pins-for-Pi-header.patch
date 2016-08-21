@@ -1,0 +1,76 @@
+From 45774cd919311f228d409fff4cf92f517a48a29b Mon Sep 17 00:00:00 2001
+From: Steve Arnold <stephen.arnold42@gmail.com>
+Date: Sat, 20 Aug 2016 17:27:33 -0700
+Subject: [PATCH 1/2] ARM: sun7i: dtsi: add i2c4 on default pins for Pi header
+ and add some usb device node comments
+
+Signed-off-by: Steve Arnold <nerdboy@gentoo.org>
+---
+ arch/arm/boot/dts/sun7i-a20.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm/boot/dts/sun7i-a20.dtsi b/arch/arm/boot/dts/sun7i-a20.dtsi
+index bd0c476..603b74c 100644
+--- a/arch/arm/boot/dts/sun7i-a20.dtsi
++++ b/arch/arm/boot/dts/sun7i-a20.dtsi
+@@ -973,6 +973,9 @@
+ 		};
+ 
+ 		usb_otg: usb@01c13000 {
++		/* OTG micro-USB connector is called USB 0 and USB DRD in the A20
++		spec.  Note it is fully USB 2.0 and can be used as another USB
++		host port with the proper adapter. */
+ 			compatible = "allwinner,sun4i-a10-musb";
+ 			reg = <0x01c13000 0x0400>;
+ 			clocks = <&ahb_gates 0>;
+@@ -998,6 +1001,8 @@
+ 		};
+ 
+ 		ehci0: usb@01c14000 {
++		/* single port external USB Host connector is called 
++		USB 1 and USB_HCI0 in A20 spec */
+ 			compatible = "allwinner,sun7i-a20-ehci", "generic-ehci";
+ 			reg = <0x01c14000 0x100>;
+ 			interrupts = <GIC_SPI 39 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1008,6 +1013,7 @@
+ 		};
+ 
+ 		ohci0: usb@01c14400 {
++		/* same physical port as above */
+ 			compatible = "allwinner,sun7i-a20-ohci", "generic-ohci";
+ 			reg = <0x01c14400 0x100>;
+ 			interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1048,6 +1054,8 @@
+ 		};
+ 
+ 		ehci1: usb@01c1c000 {
++		/* internal USB Host connector used for WIFI is called 
++		USB 2 and USB_HCI1 in A20 spec */
+ 			compatible = "allwinner,sun7i-a20-ehci", "generic-ehci";
+ 			reg = <0x01c1c000 0x100>;
+ 			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1058,6 +1066,7 @@
+ 		};
+ 
+ 		ohci1: usb@01c1c400 {
++		/* same physical port as above */
+ 			compatible = "allwinner,sun7i-a20-ohci", "generic-ohci";
+ 			reg = <0x01c1c400 0x100>;
+ 			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1170,6 +1179,13 @@
+ 				allwinner,pull = <SUN4I_PINCTRL_NO_PULL>;
+ 			};
+ 
++			i2c4_pins_a: i2c4@0 {
++				allwinner,pins = "PI2", "PI3";
++				allwinner,function = "i2c4";
++				allwinner,drive = <SUN4I_PINCTRL_10_MA>;
++				allwinner,pull = <SUN4I_PINCTRL_NO_PULL>;
++			};
++
+ 			ir0_rx_pins_a: ir0@0 {
+ 				    allwinner,pins = "PB4";
+ 				    allwinner,function = "ir0";
+-- 
+2.8.1
+

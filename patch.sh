@@ -313,6 +313,8 @@ sunxi () {
 	echo "dir: sunxi"
 	${git} "${DIR}/patches/sunxi/0001-PATCH-v1-ARM-dtsi-sun4i-Add-clocks-and-hardware-defs.patch"
 	${git} "${DIR}/patches/sunxi/0002-PATCH-v1-ARM-dts-mk802-Switch-OTG-to-host-mode.patch"
+	${git} "${DIR}/patches/sunxi/0001-ARM-sun7i-dtsi-add-i2c4-on-default-pins-for-Pi-header.patch"
+	${git} "${DIR}/patches/sunxi/0002-ARM-sun7i-dts-add-fixes-and-enhancements-to-lamobo-r.patch"
 }
 
 udoo () {
@@ -808,7 +810,7 @@ reverts
 ti
 dts
 wand
-#sunxi
+sunxi
 udoo
 exynos
 pru_uio
