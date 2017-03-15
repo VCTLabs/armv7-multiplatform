@@ -419,6 +419,7 @@ drivers () {
 
 soc () {
 	dir 'soc/exynos'
+	dir 'soc/imx/nitrogen6x'
 	dir 'soc/imx/udoo'
 	dir 'soc/imx/wandboard'
 	dir 'soc/imx'
