@@ -420,6 +420,7 @@ soc () {
 	dir 'soc/imx/udoo'
 	dir 'soc/imx/wandboard'
 	dir 'soc/imx'
+	dir 'soc/imx/neo'
 	#dir 'soc/sunxi'
 	dir 'soc/ti'
 	dir 'soc/ti/bone_common'

@@ -1,0 +1,38 @@
+From f4c9fbbf48f450279d8aed64abe699dda0395e68 Mon Sep 17 00:00:00 2001
+From: Steve Arnold <nerdboy@gentoo.org>
+Date: Sat, 11 Nov 2017 13:36:07 -0800
+Subject: [PATCH 3/3] remoteproc: imx_rproc: fix return value check in
+ imx_rproc_addr_init()
+
+In case of error, the function devm_ioremap() returns NULL pointer
+not ERR_PTR(). The IS_ERR() test in the return value check should
+be replaced with NULL test.
+
+Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Ported-by: Steve Arnold <nerdboy@gentoo.org>
+---
+ drivers/remoteproc/imx_rproc.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+index 2a5300c3323c..e387aa407e31 100644
+--- a/drivers/remoteproc/imx_rproc.c
++++ b/drivers/remoteproc/imx_rproc.c
+@@ -270,10 +270,9 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
+ 
+ 		priv->mem[b].cpu_addr = devm_ioremap(&pdev->dev,
+ 						     att->sa, att->size);
+-		if (IS_ERR(priv->mem[b].cpu_addr)) {
++		if (!priv->mem[b].cpu_addr) {
+ 			dev_err(&pdev->dev, "devm_ioremap_resource failed\n");
+-			err = PTR_ERR(priv->mem[b].cpu_addr);
+-			return err;
++			return -ENOMEM;
+ 		}
+ 		priv->mem[b].sys_addr = att->sa;
+ 		priv->mem[b].size = att->size;
+-- 
+2.15.0
+
