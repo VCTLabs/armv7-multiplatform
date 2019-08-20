@@ -473,12 +473,20 @@ beaglebone () {
 	fi
 }
 
+bootsplash () {
+	echo "dir: bootsplash"
+	${git} "${DIR}/patches/bootsplash/0001-linux-stable-Add-kernel-bootsplash-patches.patch"
+	${git} "${DIR}/patches/bootsplash/0002-bootsplash-add-gentoo-logo-build-script.patch"
+	${git} "${DIR}/patches/bootsplash/0003-tools-bootsplash-Makefile-fix-include-paths.patch"
+}
+
 ###
 #backports
 #reverts
 drivers
 soc
 beaglebone
+bootsplash
 
 packaging () {
 	echo "dir: packaging"
